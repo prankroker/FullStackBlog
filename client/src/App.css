@@ -1,0 +1,135 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --coolBlue: dodgerblue;
+  --shadow: lightslategray;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.PostTitle {
+  background-color: var(--coolBlue);
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.PostUsername {
+  background-color: var(--coolBlue);
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: 5px;
+}
+
+.PostText {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Post:hover {
+  box-shadow: 2px 2px 5px var(--shadow);
+  cursor: pointer;
+}
+
+span {
+  color: red;
+}
+
+.FormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid var(--coolBlue);
+  margin: 5px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 5px;
+  width: 300px;
+  height: 300px;
+}
+
+button {
+  margin-top: 5px;
+  border-radius: 5px;
+  background-color: var(--shadow);
+  width: 80%;
+  height: 7%;
+}
+
+button:hover {
+  background-color: #4e91fd;
+}
+
+input {
+  width: 80%;
+  height: 7%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  font-size: large;
+  font-weight: bold;
+}
+
+.navbar {
+  width: 100%;
+  height: 70px;
+  background-color: dodgerblue;
+}
+
+.navbar a {
+  text-align: left;
+  text-decoration: none;
+  font-size: xx-large;
+  margin: 10px;
+  color: white;
+}
+
+.navbar a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
