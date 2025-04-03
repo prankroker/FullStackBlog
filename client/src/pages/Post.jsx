@@ -19,15 +19,30 @@ function Post() {
   function handleSubmit() {
     if (newComment.length > 1) {
       axios
-        .post(`http://localhost:3001/comments`, {
-          commentText: newComment,
-          PostId: id,
-        })
+        .post(
+          `http://localhost:3001/comments`,
+          {
+            commentText: newComment,
+            PostId: id,
+          },
+          {
+            headers: {
+              accessToken: localStorage.getItem("accessToken"),
+            },
+          }
+        )
         .then((response) => {
-          const commentToAdd = { commentText: newComment };
-          setComments([...comments, commentToAdd]);
-          setNewComment("");
-          setLabel("Enter your comment:");
+          if (response.data.error) {
+            alert(response.data.error);
+          } else {
+            const commentToAdd = {
+              commentText: newComment,
+              username: response.data.username,
+            };
+            setComments([...comments, commentToAdd]);
+            setNewComment("");
+            setLabel("Enter your comment:");
+          }
         });
     } else {
       setLabel("Enter comment with length > than 1");
@@ -63,7 +78,12 @@ function Post() {
         </div>
         <div className="CommentSection">
           {comments.map((comment) => {
-            return <div className="Comment">{comment.commentText}</div>;
+            return (
+              <div className="Comment">
+                {comment.commentText}
+                <p>username: {comment.username}</p>
+              </div>
+            );
           })}
         </div>
       </div>
