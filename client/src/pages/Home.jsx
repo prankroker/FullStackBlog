@@ -1,30 +1,78 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../helpers/AuthContext";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/posts").then((response) => {
-      setPosts(response.data);
-    });
+    if (!authState.status) {
+      navigate("/login");
+    } else {
+      axios
+        .get("http://localhost:3001/posts", {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        })
+        .then((response) => {
+          setPosts(response.data.listOfPosts);
+        });
+    }
   }, []);
+
+  const likeAPost = (postId) => {
+    axios
+      .post(
+        "http://localhost:3001/likes",
+        { PostId: postId },
+        { headers: { accessToken: localStorage.getItem("accessToken") } }
+      )
+      .then((response) => {
+        setPosts(
+          posts.map((post) => {
+            if (post.id === postId) {
+              if (response.data.liked) {
+                return { ...post, Likes: [...post.Likes, 0] };
+              } else {
+                const likesArr = post.Likes;
+                likesArr.pop();
+                return { ...post, Likes: likesArr };
+              }
+            } else {
+              return post;
+            }
+          })
+        );
+      });
+  };
 
   let navigate = useNavigate();
   return (
     <>
       {posts.map((item) => {
         return (
-          <div
-            className="Post"
-            onClick={() => {
-              navigate(`/post/${item.id}`);
-            }}
-          >
+          <div className="Post">
             <div className="PostTitle">{item.title}</div>
-            <div className="PostText">{item.postText}</div>
-            <div className="PostUsername">{item.username}</div>
+            <div
+              className="PostText"
+              onClick={() => {
+                navigate(`/post/${item.id}`);
+              }}
+            >
+              {item.postText}
+            </div>
+            <div className="PostUsername">
+              {item.username}{" "}
+              <button
+                onClick={() => {
+                  likeAPost(item.id);
+                }}
+              >
+                Like
+              </button>
+              <label>{item.Likes.length}</label>
+            </div>
           </div>
         );
       })}

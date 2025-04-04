@@ -2,6 +2,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  font-family: "Times New Roman", Times, serif;
 }
 
 :root {
@@ -53,6 +54,11 @@ body {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   margin-top: 5px;
+}
+
+.PostUsername button {
+  width: 40%;
+  height: 40px;
 }
 
 .PostText {
@@ -121,6 +127,30 @@ label {
   background-color: var(--coolBlue);
 }
 
+.navbar h1 {
+  display: inline;
+  color: white;
+}
+
+.navbar h1:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.navbar button {
+  width: 120px;
+  height: 30px;
+  background-color: var(--coolBlue);
+  border: 0;
+  color: white;
+  font-size: xx-large;
+}
+
+.navbar button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .navbar a {
   text-align: left;
   text-decoration: none;
@@ -179,4 +209,14 @@ label {
   min-height: 30px;
   margin: 10px;
   text-align: center;
+}
+
+.Comment button {
+  width: 20%;
+  background-color: crimson;
+}
+
+.Comment button:hover {
+  cursor: pointer;
+  background-color: red;
 }
