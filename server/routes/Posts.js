@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Posts, Likes } = require("../models");
 const { validateToken } = require("../middleware/AuthMiddleware");
+const { where } = require("sequelize");
 
 router.get("/", validateToken, async (req, res) => {
   const listOfPosts = await Posts.findAll({ include: [Likes] });
@@ -28,6 +29,18 @@ router.post("/", validateToken, async (req, res) => {
   post.UserId = req.user.id;
   await Posts.create(post);
   res.json(post);
+});
+
+router.put("/updateTitle", validateToken, async (req, res) => {
+  const { newTitle, id } = req.body;
+  await Posts.update({ title: newTitle }, { where: { id: id } });
+  res.json(newTitle);
+});
+
+router.put("/updateText", validateToken, async (req, res) => {
+  const { newText, id } = req.body;
+  await Posts.update({ postText: newText }, { where: { id: id } });
+  res.json(newText);
 });
 
 router.delete("/:postId", validateToken, async (req, res) => {
