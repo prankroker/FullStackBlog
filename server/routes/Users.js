@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
   if (!user) {
     res.json({ error: "User doesn't exist" });
   } else {
-    bcrypt.compare(password, user.password).then((match) => {
+    bcrypt.compare(password, user.password).then(async (match) => {
       if (!match) {
         res.json({ error: "Wrong username and/or password combination" });
       } else {
@@ -51,6 +51,21 @@ router.get("/basicinfo/:id", async (req, res) => {
   });
 
   res.json(basicinfo);
+});
+
+router.put("/changepassword", validateToken, async (req, res) => {
+  const { oldPass, newPass } = req.body;
+  const user = await Users.findOne({ where: { username: req.user.username } });
+  bcrypt.compare(oldPass, user.password).then(async (match) => {
+    if (!match) res.json({ error: "Wrong password" });
+    bcrypt.hash(newPass, 10).then((hash) => {
+      Users.update(
+        { password: hash },
+        { where: { username: req.user.username } }
+      );
+    });
+    res.json("password updated");
+  });
 });
 
 module.exports = router;

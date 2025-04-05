@@ -9,6 +9,7 @@ import PageNotFound from "./pages/PageNotFound";
 import { AuthContext } from "./helpers/AuthContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -72,6 +73,7 @@ function App() {
             <Route path="/registration" exact element={<Registration />} />
             <Route path="/login" exact element={<Login />} />
             <Route path="/profile/:id" exact element={<Profile />} />
+            <Route path="/changePassword" exact element={<ChangePassword />} />
             <Route path="*" element={<PageNotFound />} /> //this one is for 404
           </Routes>
         </Router>
