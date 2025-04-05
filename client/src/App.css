@@ -220,3 +220,8 @@ label {
   cursor: pointer;
   background-color: red;
 }
+
+.username:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

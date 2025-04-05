@@ -4,6 +4,7 @@ import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import PageNotFound from "./pages/PageNotFound";
 import { AuthContext } from "./helpers/AuthContext";
 import { useEffect, useState } from "react";
@@ -61,7 +62,7 @@ function App() {
                 <Link to={"/"}>Homepage</Link>
               </>
             )}
-            <h1>{authState.username}</h1>
+            <Link to={"/profile/:id"}>{authState.username}</Link>
             {authState.status && <button onClick={logout}>Logout</button>}
           </div>
           <Routes>
@@ -70,6 +71,7 @@ function App() {
             <Route path="/post/:id" element={<Post />} />
             <Route path="/registration" exact element={<Registration />} />
             <Route path="/login" exact element={<Login />} />
+            <Route path="/profile/:id" exact element={<Profile />} />
             <Route path="*" element={<PageNotFound />} /> //this one is for 404
           </Routes>
         </Router>

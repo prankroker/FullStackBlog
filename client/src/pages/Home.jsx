@@ -47,6 +47,10 @@ function Home() {
       });
   };
 
+  const toProfile = (UserId) => {
+    navigate(`/profile/${UserId}`);
+  };
+
   let navigate = useNavigate();
   return (
     <>
@@ -63,7 +67,12 @@ function Home() {
               {item.postText}
             </div>
             <div className="PostUsername">
-              {item.username}{" "}
+              <label
+                className="username"
+                onClick={() => toProfile(item.UserId)}
+              >
+                {item.username}
+              </label>
               <button
                 onClick={() => {
                   likeAPost(item.id);
