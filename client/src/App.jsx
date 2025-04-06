@@ -17,6 +17,7 @@ function App() {
     id: 0,
     status: false,
   });
+
   useEffect(() => {
     axios
       .get("http://localhost:3001/auth/auth", {
@@ -63,7 +64,7 @@ function App() {
                 <Link to={"/"}>Homepage</Link>
               </>
             )}
-            <Link to={"/profile/:id"}>{authState.username}</Link>
+            <Link to={`/profile/${authState.id}`}>{authState.username}</Link>
             {authState.status && <button onClick={logout}>Logout</button>}
           </div>
           <Routes>

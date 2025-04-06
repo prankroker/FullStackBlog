@@ -109,6 +109,14 @@ function Post() {
     }
   };
 
+  const toProfile = (username) => {
+    axios
+      .get(`http://localhost:3001/auth/userinfo/${username}`)
+      .then((response) => {
+        navigate(`/profile/${response.data.id}`);
+      });
+  };
+
   return (
     <>
       <div className="Post">
@@ -132,7 +140,12 @@ function Post() {
         >
           {post.postText}
         </div>
-        <div className="PostUsername">
+        <div
+          className="PostUsername username"
+          onClick={() => {
+            toProfile(post.username);
+          }}
+        >
           {post.username}{" "}
           {authState.username === post.username && (
             <button onClick={() => deletePost(post.id)}>X</button>
@@ -165,7 +178,14 @@ function Post() {
             return (
               <div className="Comment">
                 {comment.commentText}
-                <p>username: {comment.username}</p>
+                <p
+                  onClick={() => {
+                    toProfile(comment.username);
+                  }}
+                  className="username"
+                >
+                  username: {comment.username}
+                </p>
                 {authState.username === comment.username && (
                   <button onClick={() => deleteComment(comment.id)}>X</button>
                 )}

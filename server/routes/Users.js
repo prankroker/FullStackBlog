@@ -4,6 +4,7 @@ const { Users } = require("../models");
 const bcrypt = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 const { validateToken } = require("../middleware/AuthMiddleware");
+const { where } = require("sequelize");
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
@@ -51,6 +52,16 @@ router.get("/basicinfo/:id", async (req, res) => {
   });
 
   res.json(basicinfo);
+});
+
+router.get("/userinfo/:username", async (req, res) => {
+  const username = req.params.username;
+
+  const userInfo = await Users.findOne({
+    where: { username: username },
+    attributes: { exclude: ["password"] },
+  });
+  res.json(userInfo);
 });
 
 router.put("/changepassword", validateToken, async (req, res) => {
