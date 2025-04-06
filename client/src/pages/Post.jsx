@@ -82,30 +82,34 @@ function Post() {
   const editPost = (option) => {
     if (option === "title") {
       let newTitle = prompt("Enter new title:");
-      axios
-        .put(
-          "http://localhost:3001/posts/updateTitle",
-          { newTitle: newTitle, id: post.id },
-          {
-            headers: { accessToken: localStorage.getItem("accessToken") },
-          }
-        )
-        .then((response) => {
-          setPost({ ...post, title: response.data });
-        });
+      if (newTitle) {
+        axios
+          .put(
+            "http://localhost:3001/posts/updateTitle",
+            { newTitle: newTitle, id: post.id },
+            {
+              headers: { accessToken: localStorage.getItem("accessToken") },
+            }
+          )
+          .then((response) => {
+            setPost({ ...post, title: response.data });
+          });
+      }
     } else {
       let newPostText = prompt("Enter new text:");
-      axios
-        .put(
-          "http://localhost:3001/posts/updateText",
-          { newText: newPostText, id: post.id },
-          {
-            headers: { accessToken: localStorage.getItem("accessToken") },
-          }
-        )
-        .then((response) => {
-          setPost({ ...post, postText: response.data });
-        });
+      if (newPostText) {
+        axios
+          .put(
+            "http://localhost:3001/posts/updateText",
+            { newText: newPostText, id: post.id },
+            {
+              headers: { accessToken: localStorage.getItem("accessToken") },
+            }
+          )
+          .then((response) => {
+            setPost({ ...post, postText: response.data });
+          });
+      }
     }
   };
 
