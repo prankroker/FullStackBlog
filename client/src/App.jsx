@@ -10,6 +10,7 @@ import { AuthContext } from "./helpers/AuthContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ChangePassword from "./pages/ChangePassword";
+import ChatbotPage from "./pages/ChatbotPage";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -75,8 +76,16 @@ function App() {
             <Route path="/login" exact element={<Login />} />
             <Route path="/profile/:id" exact element={<Profile />} />
             <Route path="/changePassword" exact element={<ChangePassword />} />
+            <Route path="/chatbot" exact element={<ChatbotPage />} />
             <Route path="*" element={<PageNotFound />} /> //this one is for 404
           </Routes>
+          {authState.status && (
+            <div className="AI">
+              <Link to={"/chatbot"}>
+                <button>AI</button>
+              </Link>
+            </div>
+          )}
         </Router>
       </AuthContext.Provider>
     </>

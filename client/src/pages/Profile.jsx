@@ -17,7 +17,7 @@ function Profile() {
     axios.get(`http://localhost:3001/posts/byUserId/${id}`).then((response) => {
       setPosts(response.data);
     });
-  }, []);
+  }, [id]);
   return (
     <div className="profilePageContainer">
       <div className="basicInfo">Username: {username}</div>
