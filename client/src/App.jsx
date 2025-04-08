@@ -77,15 +77,9 @@ function App() {
             <Route path="/profile/:id" exact element={<Profile />} />
             <Route path="/changePassword" exact element={<ChangePassword />} />
             <Route path="/chatbot" exact element={<ChatbotPage />} />
-            <Route path="*" element={<PageNotFound />} /> //this one is for 404
+            <Route path="*" element={<PageNotFound />} />{" "}
+            {/*this one is for 404 */}
           </Routes>
-          {authState.status && (
-            <div className="AI">
-              <Link to={"/chatbot"}>
-                <button>AI</button>
-              </Link>
-            </div>
-          )}
         </Router>
       </AuthContext.Provider>
     </>

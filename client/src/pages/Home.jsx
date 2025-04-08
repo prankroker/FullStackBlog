@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../helpers/AuthContext";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const { authState } = useContext(AuthContext);
+  let location = useLocation();
 
   useEffect(() => {
     if (!authState.status) {
@@ -85,6 +86,13 @@ function Home() {
           </div>
         );
       })}
+      {authState.status && location.pathname !== "/chatbot" && (
+        <div className="AI">
+          <button onClick={() => window.location.replace("/chatbot")}>
+            AI
+          </button>
+        </div>
+      )}
     </>
   );
 }
