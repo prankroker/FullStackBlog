@@ -171,6 +171,11 @@ function Post() {
             onChange={(event) => {
               setNewComment(event.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit();
+              }
+            }}
           ></input>
           <button
             className="CommentButton button"
