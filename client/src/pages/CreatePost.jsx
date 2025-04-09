@@ -53,7 +53,9 @@ function CreatePost() {
             placeholder="Enter post text:"
           />
 
-          <button type="submit">Create Post!</button>
+          <button className="button" type="submit">
+            Create Post!
+          </button>
         </Form>
       </Formik>
     </div>

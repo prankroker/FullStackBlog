@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+import Trash3 from "../assets/trash_can";
 
 function Post() {
   const [post, setPost] = useState({});
@@ -152,7 +153,9 @@ function Post() {
         >
           {post.username}{" "}
           {authState.username === post.username && (
-            <button onClick={() => deletePost(post.id)}>X</button>
+            <button className="like" onClick={() => deletePost(post.id)}>
+              <Trash3 />
+            </button>
           )}
         </div>
       </div>
@@ -170,7 +173,7 @@ function Post() {
             }}
           ></input>
           <button
-            className="CommentButton"
+            className="CommentButton button"
             type="submit"
             onClick={handleSubmit}
           >
@@ -191,7 +194,9 @@ function Post() {
                   username: {comment.username}
                 </p>
                 {authState.username === comment.username && (
-                  <button onClick={() => deleteComment(comment.id)}>X</button>
+                  <button onClick={() => deleteComment(comment.id)}>
+                    <Trash3 />
+                  </button>
                 )}
               </div>
             );

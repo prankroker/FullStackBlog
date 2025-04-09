@@ -23,6 +23,7 @@ function Profile() {
       <div className="basicInfo">Username: {username}</div>
       {authState.username === username && (
         <button
+          className="button"
           onClick={() => {
             navigate("/changePassword");
           }}

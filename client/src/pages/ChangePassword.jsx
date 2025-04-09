@@ -39,7 +39,9 @@ function ChangePassword() {
           setNewPass(event.target.value);
         }}
       />
-      <button onClick={changePass}>Submit</button>
+      <button className="button" onClick={changePass}>
+        Submit
+      </button>
     </div>
   );
 }

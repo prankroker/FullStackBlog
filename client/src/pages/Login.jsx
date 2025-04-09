@@ -42,7 +42,9 @@ function Login() {
           setPassword(event.target.value);
         }}
       ></input>
-      <button onClick={handleSubmit}>Login!</button>
+      <button className="button" onClick={handleSubmit}>
+        Login!
+      </button>
     </div>
   );
 }

@@ -2,9 +2,13 @@ import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../helpers/AuthContext";
+import ThumbsUp3 from "../assets/thumb_up";
+import ThumbsUp3act from "../assets/thumb_up_active";
+import QuestionMarkCircle from "../assets/question_mark";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   const { authState } = useContext(AuthContext);
   let location = useLocation();
 
@@ -18,6 +22,11 @@ function Home() {
         })
         .then((response) => {
           setPosts(response.data.listOfPosts);
+          setLikedPosts(
+            response.data.likedPosts.map((like) => {
+              return like.PostId;
+            })
+          );
         });
     }
   }, []);
@@ -46,6 +55,16 @@ function Home() {
           })
         );
       });
+
+    if (likedPosts.includes(postId)) {
+      setLikedPosts(
+        likedPosts.filter((id) => {
+          return id != postId;
+        })
+      );
+    } else {
+      setLikedPosts([...likedPosts, postId]);
+    }
   };
 
   const toProfile = (UserId) => {
@@ -75,11 +94,16 @@ function Home() {
                 {item.username}
               </label>
               <button
+                className="like"
                 onClick={() => {
                   likeAPost(item.id);
                 }}
               >
-                Like
+                {likedPosts.includes(item.id) ? (
+                  <ThumbsUp3act />
+                ) : (
+                  <ThumbsUp3 />
+                )}
               </button>
               <label>{item.Likes.length}</label>
             </div>
@@ -88,8 +112,11 @@ function Home() {
       })}
       {authState.status && location.pathname !== "/chatbot" && (
         <div className="AI">
-          <button onClick={() => window.location.replace("/chatbot")}>
-            AI
+          <button
+            className="question"
+            onClick={() => window.location.replace("/chatbot")}
+          >
+            <QuestionMarkCircle />
           </button>
         </div>
       )}
