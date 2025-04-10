@@ -53,7 +53,9 @@ function ChatbotPage() {
               if (e.key === "Enter") handleSubmit();
             }}
           ></input>
-          <button onClick={handleSubmit}>Submit</button>
+          <button className="button" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
     </>
